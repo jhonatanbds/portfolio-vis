@@ -2,12 +2,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Categories on Visualização de Informação</title>
-    <link>jhonatanbds.github.io/portfolio-vis/categories/</link>
+    <link>https://jhonatanbds.github.io/portfolio-vis/categories/</link>
     <description>Recent content in Categories on Visualização de Informação</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
+    <copyright>Released under the MIT license.</copyright>
     
-	<atom:link href="jhonatanbds.github.io/portfolio-vis/categories/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://jhonatanbds.github.io/portfolio-vis/categories/index.xml" rel="self" type="application/rss+xml" />
     
     
   </channel>

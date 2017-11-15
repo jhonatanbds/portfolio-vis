@@ -1,139 +1,70 @@
 <!DOCTYPE html>
 <html lang="pt-br">
-    <head>
-         
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Testing</title>
-        <style>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    html body {
-        font-family: 'Raleway', sans-serif;
-        background-color: white;
-    }
+    <title>Testing &middot; Visualização de Informação</title>
+    <meta name="author" content="Jhonatan Batista">
+    <meta name="description" content="Your description of the blog">
+    <meta name="generator" content="Hugo 0.30.2" />
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 
-    :root {
-        --accent: #3366cc;
-        --border-width:  5px ;
-    }
+    <!-- RSS autodiscovery -->
+    
 
+    <link rel="shortcut icon" href="https://jhonatanbds.github.io/portfolio-vis/img/favicon.ico">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://jhonatanbds.github.io/portfolio-vis/css/screen.css">
+    <link rel="stylesheet" href="https://jhonatanbds.github.io/portfolio-vis/css/github.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+    
+
+    
+    <link rel="shortcut icon" type="image/x-icon" href="https://jhonatanbds.github.io/portfolio-vis/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://jhonatanbds.github.io/portfolio-vis/favicon.ico">
+    
+
+    <!-- Stylesheet for theme color -->
+    <style type="text/css">
+    a, a:visited {color: #33cc99;}
+    .pagination a {color: #33cc99;}
+    .gist .gist-file .gist-meta a:visited {color: #33cc99 !important;}
+    a:focus, a:hover {color: #178b6b;}
+    h1.post-title a:focus, h1.post-title a:hover, h1.blog-title a:focus, h1.blog-title a:hover {color: #178b6b;}
+    .older-posts:hover, .newer-posts:hover {color: #178b6b;}
 </style>
+</head>
 
-
-<link rel="stylesheet" href="/css/main.css">
-
-
-
-
-
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
-
-
- <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/solarized-dark.min.css"> 
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-
-
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
- 
-
-
-    <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-
-     <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/go.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/haskell.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/kotlin.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/scala.min.js"></script>  <script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/languages/swift.min.js"></script> 
-
-    <script>hljs.initHighlightingOnLoad();</script>
-
-
-
-
-
-
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-
-
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-<script>$(document).on('click', function() { $('.collapse').collapse('hide'); })</script>
- <meta name="generator" content="Hugo 0.30.2" />
-        
-        
-        
-    </head>
-
-    <body>
-         
-        <nav class="navbar navbar-default navbar-fixed-top">
-
-            <div class="container">
-
-                <div class="navbar-header">
-
-                    <a class="navbar-brand visible-xs" href="#">Testing</a>
-
-                    <button class="navbar-toggle" data-target=".navbar-collapse" data-toggle="collapse">
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                </div>
-
-                <div class="collapse navbar-collapse">
-
-                    
-                        <ul class="nav navbar-nav">
-                            
-                                <li><a href="jhonatanbds.github.io/portfolio-vis/">Início</a></li>
-                            
-                                <li><a href="jhonatanbds.github.io/portfolio-vis/post/">Visualizações</a></li>
-                            
-                        </ul>
-                    
-
-                    
-                        <ul class="nav navbar-nav navbar-right">
-                            
-                                <li class="navbar-icon"><a href="mailto:jhonatan.silva@ccc.ufcg.edu.br"><i class="fa fa-envelope-o"></i></a></li>
-                            
-                                <li class="navbar-icon"><a href="https://github.com/jhonatanbds/"><i class="fa fa-github"></i></a></li>
-                            
-                                <li class="navbar-icon"><a href="https://twitter.com/jbatistakkk/"><i class="fa fa-twitter"></i></a></li>
-                            
-                                <li class="navbar-icon"><a href="https://www.linkedin.com/in/username/"><i class="fa fa-linkedin"></i></a></li>
-                            
-                        </ul>
-                    
-
-                </div>
-
-            </div>
-
-        </nav>
-
-
-<main>
-
-    <div class="item">
-
+<body class="home-template">
+    <header id="site-head">
+	
+	<h1 class="blog-title"><a href="https://jhonatanbds.github.io/portfolio-vis">Visualização de Informação</a></h1>
+	
+	
+	<h1 class="blog-subtitle">portfolio de visualizações referentes à disciplina</h1>
+	
+</header>
     
     
+    <main class="content" role="main">
     
+<article class="post">
+    <header>
+        <h1 class="post-title">Testing</h1>
+        <div class="post-meta">
+            <time datetime="10 November 2017">
+                10 November 2017
+            </time>
+        </div>
+    </header>
 
-    
-    
-
-    <h4><a href="jhonatanbds.github.io/portfolio-vis/post/testing/">Testing</a></h4>
-    <h5>November 10, 2017</h5>
-    
-
-</div>
-
-
-    <br> <div class="text-justify"><div id="vis" width=300></div>
+    <section class="post-content">
+        <div id="vis" width=300></div>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vega/3.0.7/vega.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/vega-lite/2.0.1/vega-lite.js"></script>
@@ -178,18 +109,18 @@
      };
     vegaEmbed('#vis', spec).catch(console.warn);
 </script>
-</div>
+
+    </section>
 
     
+    <section class="post-tags" style="padding-bottom:60px;">
+        <div class="post-meta tags">
+            <i class="fa fa-fw fa-tag"></i>
+            
+        </div>
+    </section>
     
-
-    
-
-    
-
-        <h4 class="page-header">Comments</h4>
-
-        <div id="disqus_thread"></div>
+    <div id="disqus_thread"></div>
 <script>
     var disqus_config = function () {
     
@@ -202,25 +133,83 @@
             return;
         }
         var d = document, s = d.createElement('script'); s.async = true;
-        s.src = '//' + "username" + '.disqus.com/embed.js';
+        s.src = '//' + "spf13" + '.disqus.com/embed.js';
         s.setAttribute('data-timestamp', +new Date());
         (d.head || d.body).appendChild(s);
     })();
 </script>
 <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 <a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <section class="share">
+    <p class="backtotop"><a data-scroll href="#site-head"><i class="fa fa-lg fa-fw fa-angle-double-up"></i></a><a data-scroll class="backtotoptext" href="#site-head"> Back to top</a></p>
+    <p class="info prompt">Share</p>
+    <a href="http://twitter.com/share?text=Testing&url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2ftesting%2f" title="Share on Twitter"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <i class="fa fa-2x fa-fw fa-twitter-square"></i> <span class="hidden">Twitter</span>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2ftesting%2f" title="Share on Facebook"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px"></i> <span class="hidden">Facebook</span>
+    </a>
+    <a href="https://plus.google.com/share?url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2ftesting%2f" title="Share on Google+"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px"></i> <span class="hidden">Google+</span>
+    </a>
+</section>
 
+    <footer class="post-footer">
+        <section class="author">
+    <div class="authorimage" style="background: url(https://jhonatanbds.github.io/portfolio-vis/img/avatar.jpg)"></div>
+    <h4>Jhonatan Batista</h4>
+    <p class="bio">Computer Science undergraduate at UFCG</p>
+    <p class="meta">
+      
+    </p>
+</section>
+    </footer>
     
+</article>
 
-</main>
+    </main>
 
-        <footer>
+    <footer class="site-footer">
+	<div class="inner">
+		<section class="footer-social">
+      
+      <a href="//twitter.com/jbatistakkk" target="_blank" title="Twitter"><i class="fa fa-2x fa-fw fa-twitter"></i> <span class="hidden">Twitter</span></a>&nbsp;
+      
+      
+      
+      
+      
+      
+      <a href="//github.com/jhonatanbds" target="_blank" title="GitHub"><i class="fa fa-2x fa-fw fa-github"></i> <span class="hidden">GitHub</span></a>&nbsp;
+      
+      
+      
+      
+  </section>
 
-            <p class="copyright text-muted">&copy; All rights reserved. Powered by <a href="https://gohugo.io">Hugo</a> and <a href="https://github.com/calintat/minimal">Minimal</a></p>
+		<section class="copyright">&copy; 2017 <a href="https://jhonatanbds.github.io/portfolio-vis">Jhonatan Batista</a>. Released under the MIT license.</section>
+	</div>
+</footer>
 
-        </footer>
-       
-    </body>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://jhonatanbds.github.io/portfolio-vis/js/index.js"></script>
+<script src="https://jhonatanbds.github.io/portfolio-vis/js/smooth-scroll.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
 
+
+<script>
+    smoothScroll.init({
+        speed: 800,
+        easing: 'easeInOutCubic',
+        updateURL: false,
+        offset: 125,
+    });
+</script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</body>
 </html>
-
