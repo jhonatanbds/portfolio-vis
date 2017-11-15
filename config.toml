@@ -1,13 +1,14 @@
 baseURL = "http://jhonatanbds.github.com/portfolio-vis/"
 languageCode = "pt-br"
-title = "VIsualizando nossa àgua"
+title = "Visualização de Informação"
 theme = "minimal"
 disqusShortname = "username" # delete this to disable disqus comments
 googleAnalytics = ""
+publishDir = "docs"
 
 [params]
     author = "Jhonatan Batista"
-    description = "Como o nível de boqueirão se comportou ao longo do tempo"
+    description = "Portfolio referente às tarefas realizadas durante a disciplina"
     githubUsername = "#"
     accent = "#3366cc"
     showBorder = true
