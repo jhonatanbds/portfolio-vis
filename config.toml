@@ -1,54 +1,45 @@
-baseURL = "jhonatanbds.github.io/portfolio-vis"
+baseurl = "https://jhonatanbds.github.io/portfolio-vis"
 languageCode = "pt-br"
 title = "Visualização de Informação"
-theme = "minimal"
-disqusShortname = "username" # delete this to disable disqus comments
+theme = "hugo-steam-theme"
+disqusShortname = "spf13"
+# Enable Google Analytics be inserting your tracking code
 googleAnalytics = ""
-publishDir = "docs"
+# Number of posts per page
+paginate = 10
 
 [params]
-    author = "Jhonatan Batista"
-    description = "Portfolio referente às tarefas realizadas durante a disciplina"
-    githubUsername = "#"
-    accent = "#3366cc"
-    showBorder = true
-    backgroundColor = "white"
-    font = "Raleway" # should match the name on Google Fonts!
-    highlight = true
-    highlightStyle = "solarized-dark"
-    highlightLanguages = ["go", "haskell", "kotlin", "scala", "swift"]
+	title = "Visualização de Informação"
+	subtitle = "portfolio de visualizações referentes à disciplina"
+	copyright = "Released under the MIT license."
 
-[[menu.main]]
-    url = "/"
-    name = "Início"
-    weight = 1
+	# You can choose between green, orange, red and blue.
+	themecolor = "green"
 
-[[menu.main]]
-    url = "/post/"
-    name = "Visualizações"
-    weight = 2
+	# Link custom assets relative to /static
+	favicon   = "favicon.ico"
+	customCSS = []
+	customJS  = []
 
+	# To provide some metadata for search engines and the about section in the footer
+	# feel free to add a few information about you and your website.
+	name = "Jhonatan Batista"
+	bio = "Computer Science undergraduate at UFCG"
+	description = "Your description of the blog"
+	
+	# Link your social networks (optional)
+	location = ""
+	twitter = "jbatistakkk"
+	linkedin = ""
+	googleplus = ""
+	facebook = ""
+	instagram = ""
+	github = "jhonatanbds"
+	gitlab = ""
+	bitbucket = ""
 
-# Social icons to be shown on the right-hand side of the navigation bar
-# The "name" field should match the name of the icon to be used
-# The list of available icons can be found at http://fontawesome.io/icons/
-
-[[menu.icon]]
-    url = "mailto:jhonatan.silva@ccc.ufcg.edu.br"
-    name = "envelope-o"
-    weight = 1
-
-[[menu.icon]]
-    url = "https://github.com/jhonatanbds/"
-    name = "github"
-    weight = 2
-
-[[menu.icon]]
-    url = "https://twitter.com/jbatistakkk/"
-    name = "twitter"
-    weight = 3
-
-[[menu.icon]]
-    url = "https://www.linkedin.com/in/username/"
-    name = "linkedin"
-    weight = 4
+	# Customize or translate the strings
+	keepReadingStr = "Keep reading"
+	backtotopStr = "Back to top"
+	shareStr = "Share"
+	pageNotFoundTitle = "404 - Page not found"
