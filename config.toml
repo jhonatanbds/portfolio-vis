@@ -11,7 +11,7 @@ publishDir = "docs"
 
 [params]
 	title = "Visualização de Informação"
-	subtitle = "portfolio de visualizações referentes à disciplina"
+	subtitle = "portfolio de visualizações"
 	copyright = "Released under the MIT license."
 
 	# You can choose between green, orange, red and blue.
