@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
     <copyright>Released under the MIT license.</copyright>
-    <lastBuildDate>Fri, 10 Nov 2017 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Wed, 29 Nov 2017 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://jhonatanbds.github.io/portfolio-vis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Percentis Boqueirão</title>
+      <link>https://jhonatanbds.github.io/portfolio-vis/post/percentis/</link>
+      <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
+      
+      <guid>https://jhonatanbds.github.io/portfolio-vis/post/percentis/</guid>
+      <description>A visualização a seguir apresenta a relação entre 10-percentil e 90-percentil para cada mês do ano. Bem como é possível identificar pelas marcas em um tom esverdeado se o mês é chuvoso ou não e além disso, o tamanho da marca indica a mediana..mychart rect {fill: steelblue;}.mychart rect:hover {fill: goldenrod;}.mychart text {font: 12px sans-serif;text-anchor: left;}&#34;</description>
+    </item>
     
     <item>
       <title>Visualizando nossa água</title>

@@ -1,0 +1,125 @@
+---
+title: "Percentis Boqueirão"
+date: 2017-11-29
+tags: []
+draft: false
+---
+
+<script src="https://d3js.org/d3.v4.min.js"></script>
+
+<p>
+  A visualização a seguir apresenta a relação entre 10-percentil e 90-percentil para cada mês do ano. Bem como é possível identificar pelas marcas em um tom esverdeado se o mês é chuvoso ou não e além disso, o tamanho da marca indica a mediana.
+</p>
+<div id="chart"></div>
+<style>
+    .mychart rect {
+      fill: steelblue;
+    }
+
+    .mychart rect:hover {
+      fill: goldenrod;
+    }
+
+    .mychart text {
+      font: 12px sans-serif;
+      text-anchor: left;
+    }
+</style>
+
+<script type="text/javascript">
+   
+    "use strict"
+    function desenhaBarras(dados) {
+      "use strict"
+      var alturaSVG = 300, larguraSVG = 600;
+      var	margin = {top: 20, right: 20, bottom:40, left: 40},
+          larguraVis = larguraSVG - margin.left - margin.right,
+          alturaVis = alturaSVG - margin.top - margin.bottom;
+
+     
+      var grafico = d3.select('#chart')
+        .append('svg')
+          .attr('width', larguraVis + margin.left + margin.right)
+          .attr('height', alturaVis + margin.top + margin.bottom)
+        .append('g')
+          .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+
+    
+      var x = d3.scaleBand()
+                .domain(dados.map((d, i) => d.noventa_percentil))
+                .range([0, larguraVis])
+                .paddingInner(0.3);
+
+      var y = d3.scaleLinear()
+                .domain([0, d3.max(dados.map((d, i) => d.dez_percentil))])
+                .range([alturaVis, 0]);
+
+      var m = d3.scaleLinear()
+                .domain([d3.min(dados.map((d, i) => d.mediana)), d3.max(dados.map((d, i) => d.mediana))])
+                .range([x.bandwidth()/4, x.bandwidth()/2]);
+
+      var cor = function(mes, tipo) {
+          if (tipo == "fill") {
+            if (mes > 0 && mes < 5)
+                return "#21746F"
+            else return "#E2E062"
+          } else {
+            if (mes > 0 && mes < 5)
+                return "#22555F"
+            else return "#9ECA67"
+          }
+      }
+
+      var meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago", "Set", "Out", "Nov", "Dez"];
+      var mes = function(mes) {
+          return meses[mes]
+      }
+
+      grafico.selectAll('g')
+       .data(dados)
+       .enter()
+        .append('circle')
+           .attr("cx", d => x(d.noventa_percentil) + 22)
+           .attr("cy", d => y(d.dez_percentil))
+           .attr("r", d => m(d.mediana))
+           .attr("fill", d => cor(d.mes, "fill"))
+           .attr("stroke", d => cor(d.mes, "stroke"))
+           .attr("stroke-width", 2)
+       
+      grafico.selectAll('g')
+       .data(dados)
+       .enter()
+        .append('text')
+           .attr("x", d => x(d.noventa_percentil) + 10)
+           .attr("y", d => y(d.dez_percentil) + 33)
+           .text(d => mes(d.mes-1));  
+    
+       
+      grafico.append("g")
+        .attr("transform", "translate(0," + alturaVis + ")")
+        .call(d3.axisBottom(x));
+
+
+      grafico.append("text")             
+        .attr("transform",
+                "translate(" + (larguraVis/2) + " ," + 
+                            (alturaVis + margin.top + 15) + ")")
+        .style("text-anchor", "middle")
+        .text("90-percentil");
+
+      grafico.append('g')
+              .attr('transform', 'translate(0,0)')
+              .call(d3.axisLeft(y))  
+
+      grafico.append("text")
+        .attr("transform", "translate(-30," + (alturaVis + margin.top)/2 + ") rotate(-90)")
+        .text("10-percentil");
+    
+    }
+
+    d3.csv('https://jhonatanbds.github.io/intro-d3/dados/boqueirao-por-mes.csv', function(dados) {
+      desenhaBarras(dados);
+    });   
+</script>
+
+

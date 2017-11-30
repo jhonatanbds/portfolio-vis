@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Percentis Boqueirão &middot; Visualização de Informação</title>
+    <meta name="author" content="Jhonatan Batista">
+    <meta name="description" content="Your description of the blog">
+    <meta name="generator" content="Hugo 0.30.2" />
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <!-- RSS autodiscovery -->
+    
+
+    <link rel="shortcut icon" href="https://jhonatanbds.github.io/portfolio-vis/img/favicon.ico">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://jhonatanbds.github.io/portfolio-vis/css/screen.css">
+    <link rel="stylesheet" href="https://jhonatanbds.github.io/portfolio-vis/css/github.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+    
+
+    
+    <link rel="shortcut icon" type="image/x-icon" href="https://jhonatanbds.github.io/portfolio-vis/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://jhonatanbds.github.io/portfolio-vis/favicon.ico">
+    
+
+    <!-- Stylesheet for theme color -->
+    <style type="text/css">
+    a, a:visited {color: #33cc99;}
+    .pagination a {color: #33cc99;}
+    .gist .gist-file .gist-meta a:visited {color: #33cc99 !important;}
+    a:focus, a:hover {color: #178b6b;}
+    h1.post-title a:focus, h1.post-title a:hover, h1.blog-title a:focus, h1.blog-title a:hover {color: #178b6b;}
+    .older-posts:hover, .newer-posts:hover {color: #178b6b;}
+</style>
+</head>
+
+<body class="home-template">
+    <header id="site-head">
+	
+	<h1 class="blog-title"><a href="https://jhonatanbds.github.io/portfolio-vis">Visualização de Informação</a></h1>
+	
+	
+	<h1 class="blog-subtitle">portfolio de visualizações</h1>
+	
+</header>
+    
+    
+    <main class="content" role="main">
+    
+<article class="post">
+    <header>
+        <h1 class="post-title">Percentis Boqueirão</h1>
+        <div class="post-meta">
+            <time datetime="29 November 2017">
+                29 November 2017
+            </time>
+        </div>
+    </header>
+
+    <section class="post-content">
+        <script src="https://d3js.org/d3.v4.min.js"></script>
+
+<p>
+  A visualização a seguir apresenta a relação entre 10-percentil e 90-percentil para cada mês do ano. Bem como é possível identificar pelas marcas em um tom esverdeado se o mês é chuvoso ou não e além disso, o tamanho da marca indica a mediana.
+</p>
+<div id="chart"></div>
+<style>
+    .mychart rect {
+      fill: steelblue;
+    }
+
+    .mychart rect:hover {
+      fill: goldenrod;
+    }
+
+    .mychart text {
+      font: 12px sans-serif;
+      text-anchor: left;
+    }
+</style>
+
+<script type="text/javascript">
+   
+    "use strict"
+    function desenhaBarras(dados) {
+      "use strict"
+      var alturaSVG = 300, larguraSVG = 600;
+      var	margin = {top: 20, right: 20, bottom:40, left: 40},
+          larguraVis = larguraSVG - margin.left - margin.right,
+          alturaVis = alturaSVG - margin.top - margin.bottom;
+
+     
+      var grafico = d3.select('#chart')
+        .append('svg')
+          .attr('width', larguraVis + margin.left + margin.right)
+          .attr('height', alturaVis + margin.top + margin.bottom)
+        .append('g')
+          .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+
+    
+      var x = d3.scaleBand()
+                .domain(dados.map((d, i) => d.noventa_percentil))
+                .range([0, larguraVis])
+                .paddingInner(0.3);
+
+      var y = d3.scaleLinear()
+                .domain([0, d3.max(dados.map((d, i) => d.dez_percentil))])
+                .range([alturaVis, 0]);
+
+      var m = d3.scaleLinear()
+                .domain([d3.min(dados.map((d, i) => d.mediana)), d3.max(dados.map((d, i) => d.mediana))])
+                .range([x.bandwidth()/4, x.bandwidth()/2]);
+
+      var cor = function(mes, tipo) {
+          if (tipo == "fill") {
+            if (mes > 0 && mes < 5)
+                return "#21746F"
+            else return "#E2E062"
+          } else {
+            if (mes > 0 && mes < 5)
+                return "#22555F"
+            else return "#9ECA67"
+          }
+      }
+
+      var meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago", "Set", "Out", "Nov", "Dez"];
+      var mes = function(mes) {
+          return meses[mes]
+      }
+
+      grafico.selectAll('g')
+       .data(dados)
+       .enter()
+        .append('circle')
+           .attr("cx", d => x(d.noventa_percentil) + 22)
+           .attr("cy", d => y(d.dez_percentil))
+           .attr("r", d => m(d.mediana))
+           .attr("fill", d => cor(d.mes, "fill"))
+           .attr("stroke", d => cor(d.mes, "stroke"))
+           .attr("stroke-width", 2)
+       
+      grafico.selectAll('g')
+       .data(dados)
+       .enter()
+        .append('text')
+           .attr("x", d => x(d.noventa_percentil) + 10)
+           .attr("y", d => y(d.dez_percentil) + 33)
+           .text(d => mes(d.mes-1));  
+    
+       
+      grafico.append("g")
+        .attr("transform", "translate(0," + alturaVis + ")")
+        .call(d3.axisBottom(x));
+
+
+      grafico.append("text")             
+        .attr("transform",
+                "translate(" + (larguraVis/2) + " ," + 
+                            (alturaVis + margin.top + 15) + ")")
+        .style("text-anchor", "middle")
+        .text("90-percentil");
+
+      grafico.append('g')
+              .attr('transform', 'translate(0,0)')
+              .call(d3.axisLeft(y))  
+
+      grafico.append("text")
+        .attr("transform", "translate(-30," + (alturaVis + margin.top)/2 + ") rotate(-90)")
+        .text("10-percentil");
+    
+    }
+
+    d3.csv('https://jhonatanbds.github.io/intro-d3/dados/boqueirao-por-mes.csv', function(dados) {
+      desenhaBarras(dados);
+    });   
+</script>
+
+
+
+    </section>
+
+    
+    <section class="post-tags" style="padding-bottom:60px;">
+        <div class="post-meta tags">
+            <i class="fa fa-fw fa-tag"></i>
+            
+        </div>
+    </section>
+    
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "spf13" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <section class="share">
+    <p class="backtotop"><a data-scroll href="#site-head"><i class="fa fa-lg fa-fw fa-angle-double-up"></i></a><a data-scroll class="backtotoptext" href="#site-head"> Back to top</a></p>
+    <p class="info prompt">Share</p>
+    <a href="http://twitter.com/share?text=Percentis%20Boqueir%c3%a3o&url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fpercentis%2f" title="Share on Twitter"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <i class="fa fa-2x fa-fw fa-twitter-square"></i> <span class="hidden">Twitter</span>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fpercentis%2f" title="Share on Facebook"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px"></i> <span class="hidden">Facebook</span>
+    </a>
+    <a href="https://plus.google.com/share?url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fpercentis%2f" title="Share on Google+"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px"></i> <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    <footer class="post-footer">
+        <section class="author">
+    <div class="authorimage" style="background: url(https://jhonatanbds.github.io/portfolio-vis/img/avatar.jpg)"></div>
+    <h4>Jhonatan Batista</h4>
+    <p class="bio">Computer Science undergraduate at UFCG</p>
+    <p class="meta">
+      
+    </p>
+</section>
+    </footer>
+    
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+	<div class="inner">
+		<section class="footer-social">
+      
+      <a href="//twitter.com/jbatistakkk" target="_blank" title="Twitter"><i class="fa fa-2x fa-fw fa-twitter"></i> <span class="hidden">Twitter</span></a>&nbsp;
+      
+      
+      <a href="//www.linkedin.com/in/jhonatan-batista-611071b3" target="_blank" title="linkedIn"><i class="fa fa-2x fa-fw fa-linkedin"></i> <span class="hidden">LinkedIn</span></a>&nbsp;
+      
+      
+      
+      <a href="//www.facebook.com/jbatistak" target="_blank" title="Facebook"><i class="fa fa-2x fa-fw fa-facebook"></i> <span class="hidden">Facebook</span></a>&nbsp;
+      
+      
+      
+      <a href="//github.com/jhonatanbds" target="_blank" title="GitHub"><i class="fa fa-2x fa-fw fa-github"></i> <span class="hidden">GitHub</span></a>&nbsp;
+      
+      
+      
+      
+  </section>
+
+		<section class="copyright">&copy; 2017 <a href="https://jhonatanbds.github.io/portfolio-vis">Jhonatan Batista</a>. Released under the MIT license.</section>
+	</div>
+</footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://jhonatanbds.github.io/portfolio-vis/js/index.js"></script>
+<script src="https://jhonatanbds.github.io/portfolio-vis/js/smooth-scroll.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+
+
+<script>
+    smoothScroll.init({
+        speed: 800,
+        easing: 'easeInOutCubic',
+        updateURL: false,
+        offset: 125,
+    });
+</script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</body>
+</html>
