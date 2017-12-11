@@ -1,0 +1,114 @@
+---
+title: "Transeuntes do Acude"
+date: 2017-12-09T10:02:04-03:00
+draft: false
+---
+
+
+    
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+<!-- Google fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<!-- D3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+		
+<style>
+	body {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 11px;
+		font-weight: 300;
+		fill: #242424;
+		text-align: left;
+		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+		cursor: default;
+	}
+			
+	.legend {
+		font-family: 'Raleway', sans-serif;
+		fill: #333333;
+	}
+			
+	.tooltip {
+		fill: #333333;
+	}
+</style>
+	
+	
+<p>
+	Dessa vez vamos abordar um tema diferente, apesar de levar "açude" no título, nosso foco nesse post são os transeuntes do açude velho. As visualizações a seguir só foram possíveis graças aos dados coletados pelo grupo de pesquisadores <a href="https://www.facebook.com/LabRua">LabRua</a>.<br>A primeira visualização é para ter uma noção mais geral e ampla dos picos de horários e movimentos nos três pontos de coleta de dados, sendo eles: Burrinhos em amarelo, Bob`s em vermelho e Jackson do pandeiro em azul.
+</p>
+<div style="text-align: center" class="radarChart"></div>
+<p>
+	É perceptível a discrepância da quantidade de movimento pelo tamanho da figura formada pelos dados dos Burrinhos em relação aos outros locais. E essa diferença se dá, principalmente, pela quantidade de veículos motorizados, que é o foco da próxima visualização. No gráfico de barras a seguir, podemos perceber a composição média do trânsito de veículos em cada local de coleta de dados. A quantidade expressa é relativa à média da contagem de veículos feita em horários aleatórios num período de 15 minutos para cada contagem, e mais uma vez: Burrinhos em amarelo, Bob`s em vermelho e Jackson do pandeiro em azul.
+</p>
+<div class="bars"></div>
+<p>
+	E para a última visualização temos um comparativo da quantidade de homens e mulheres que visitam o açude velho, considerando os diferentes locais e horários. As quantidades são sempre geradas a partir da média obtida através dos dados. O tamanho das marcas representam a quantidade, enquanto a cor, o sexo: mulheres em vermelho e homens em azul
+</p>
+<div class="circles"></div>
+<script src="/portfolio-vis/post/scripts/radarChart.js"></script>	
+<script src="/portfolio-vis/post/scripts/bars.js"></script>
+<script src="/portfolio-vis/post/scripts/circles.js"></script>	
+<script>
+  /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+      
+	var margin = {top: 80, right: 20, bottom: 60, left: 20},
+	width = Math.min(400, window.innerWidth - 10) - margin.left - margin.right,
+	height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
+
+	var color = d3.scale.ordinal()
+		.range(["#EDC951","#CC333F","#00A0B0"]);
+				
+	var radarChartOptions = {
+	  w: width,
+	  h: height,
+	  margin: margin,
+	  maxValue: 1,
+	  levels: 5,
+	  roundStrokes: true,
+	  color: color
+	};
+			//Call function to draw the Radar chart
+	d3.json("/portfolio-vis/post/data/dados.json", function(dados) {
+		RadarChart(".radarChart", dados, radarChartOptions);
+	});
+			
+</script>
+<script type="text/javascript">
+    var	margin = {top: 10, right: 20, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
+		width = Math.min(600, window.innerWidth - 10) - margin.left - margin.right,
+		height = 400;
+		
+		var color = ["#EDC951","#CC333F","#00A0B0"];
+
+		var barsOptions = {
+			w: width,
+			h: height,
+			margin: margin,
+			color: color
+		};
+
+  d3.json('/portfolio-vis/post/data/dados.json', function(dados) {
+    bars(".bars", dados, barsOptions);
+  });
+</script>
+<script type="text/javascript">
+    var	margin = {top: 30, right: 20, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
+		width = Math.min(600, window.innerWidth - 10) - margin.left - margin.right,
+		height = 400;
+		
+		var color = ["#EDC951","#CC333F","#00A0B0"];
+
+		var barsOptions = {
+			w: width,
+			h: height,
+			margin: margin,
+			color: color
+		};
+
+	d3.json('/portfolio-vis/post/data/dados.json', function(dados) {
+		circles(".circles", dados, barsOptions);
+	});
+</script>

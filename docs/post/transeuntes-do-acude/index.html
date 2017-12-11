@@ -4,7 +4,7 @@
     <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
 
-    <title>Percentis Boqueirão &middot; Visualização de Informação</title>
+    <title>Transeuntes do Acude &middot; Visualização de Informação</title>
     <meta name="author" content="Jhonatan Batista">
     <meta name="description" content="Your description of the blog">
     <meta name="generator" content="Hugo 0.30.2" />
@@ -55,130 +55,120 @@
     
 <article class="post">
     <header>
-        <h1 class="post-title">Percentis Boqueirão</h1>
+        <h1 class="post-title">Transeuntes do Acude</h1>
         <div class="post-meta">
-            <time datetime="29 November 2017">
-                29 November 2017
+            <time datetime="09 December 2017">
+                09 December 2017
             </time>
         </div>
     </header>
 
     <section class="post-content">
-        <script src="https://d3js.org/d3.v4.min.js"></script>
-
-<p>
-  A visualização a seguir apresenta a relação entre 10-percentil e 90-percentil para cada mês do ano. Bem como é possível identificar pelas marcas em um tom esverdeado se o mês é chuvoso ou não e além disso, o tamanho da marca indica a mediana.
-</p>
-<div id="chart"></div>
+        <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
+<!-- Google fonts -->
+<link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
+<link href='https://fonts.googleapis.com/css?family=Raleway' rel='stylesheet' type='text/css'>
+<!-- D3.js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js" charset="utf-8"></script>
+<script src="https://d3js.org/d3.v4.min.js"></script>
+		
 <style>
-    .mychart rect {
-      fill: steelblue;
-    }
-
-    .mychart rect:hover {
-      fill: goldenrod;
-    }
-
-    .mychart text {
-      font: 12px sans-serif;
-      text-anchor: left;
-    }
+	body {
+		font-family: 'Open Sans', sans-serif;
+		font-size: 11px;
+		font-weight: 300;
+		fill: #242424;
+		text-align: left;
+		text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;
+		cursor: default;
+	}
+			
+	.legend {
+		font-family: 'Raleway', sans-serif;
+		fill: #333333;
+	}
+			
+	.tooltip {
+		fill: #333333;
+	}
 </style>
+	
+	
+<p>
+	Dessa vez vamos abordar um tema diferente, apesar de levar "açude" no título, nosso foco nesse post são os transeuntes do açude velho. As visualizações a seguir só foram possíveis graças aos dados coletados pelo grupo de pesquisadores <a href="https://www.facebook.com/LabRua">LabRua</a>.<br>A primeira visualização é para ter uma noção mais geral e ampla dos picos de horários e movimentos nos três pontos de coleta de dados, sendo eles: Burrinhos em amarelo, Bob`s em vermelho e Jackson do pandeiro em azul.
+</p>
+<div style="text-align: center" class="radarChart"></div>
+<p>
+	É perceptível a discrepância da quantidade de movimento pelo tamanho da figura formada pelos dados dos Burrinhos em relação aos outros locais. E essa diferença se dá, principalmente, pela quantidade de veículos motorizados, que é o foco da próxima visualização. No gráfico de barras a seguir, podemos perceber a composição média do trânsito de veículos em cada local de coleta de dados. A quantidade expressa é relativa à média da contagem de veículos feita em horários aleatórios num período de 15 minutos para cada contagem, e mais uma vez: Burrinhos em amarelo, Bob`s em vermelho e Jackson do pandeiro em azul.
+</p>
+<div class="bars"></div>
+<p>
+	E para a última visualização temos um comparativo da quantidade de homens e mulheres que visitam o açude velho, considerando os diferentes locais e horários. As quantidades são sempre geradas a partir da média obtida através dos dados. O tamanho das marcas representam a quantidade, enquanto a cor, o sexo: mulheres em vermelho e homens em azul
+</p>
+<div class="circles"></div>
+<script src="/portfolio-vis/post/scripts/radarChart.js"></script>	
+<script src="/portfolio-vis/post/scripts/bars.js"></script>
+<script src="/portfolio-vis/post/scripts/circles.js"></script>	
+<script>
+  /* Radar chart design created by Nadieh Bremer - VisualCinnamon.com */
+      
+	var margin = {top: 80, right: 20, bottom: 60, left: 20},
+	width = Math.min(400, window.innerWidth - 10) - margin.left - margin.right,
+	height = Math.min(width, window.innerHeight - margin.top - margin.bottom - 20);
 
+	var color = d3.scale.ordinal()
+		.range(["#EDC951","#CC333F","#00A0B0"]);
+				
+	var radarChartOptions = {
+	  w: width,
+	  h: height,
+	  margin: margin,
+	  maxValue: 1,
+	  levels: 5,
+	  roundStrokes: true,
+	  color: color
+	};
+			//Call function to draw the Radar chart
+	d3.json("/portfolio-vis/post/data/dados.json", function(dados) {
+		RadarChart(".radarChart", dados, radarChartOptions);
+	});
+			
+</script>
 <script type="text/javascript">
-   
-    "use strict"
-    function desenhaBarras(dados) {
-      "use strict"
-      var alturaSVG = 300, larguraSVG = 600;
-      var	margin = {top: 20, right: 20, bottom:40, left: 40},
-          larguraVis = larguraSVG - margin.left - margin.right,
-          alturaVis = alturaSVG - margin.top - margin.bottom;
+    var	margin = {top: 10, right: 20, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
+		width = Math.min(600, window.innerWidth - 10) - margin.left - margin.right,
+		height = 400;
+		
+		var color = ["#EDC951","#CC333F","#00A0B0"];
 
-     
-      var grafico = d3.select('#chart')
-        .append('svg')
-          .attr('width', larguraVis + margin.left + margin.right)
-          .attr('height', alturaVis + margin.top + margin.bottom)
-        .append('g')
-          .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
+		var barsOptions = {
+			w: width,
+			h: height,
+			margin: margin,
+			color: color
+		};
 
-    
-      var x = d3.scaleBand()
-                .domain(dados.map((d, i) => d.noventa_percentil))
-                .range([0, larguraVis])
-                .paddingInner(0.3);
+  d3.json('/portfolio-vis/post/data/dados.json', function(dados) {
+    bars(".bars", dados, barsOptions);
+  });
+</script>
+<script type="text/javascript">
+    var	margin = {top: 30, right: 20, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
+		width = Math.min(600, window.innerWidth - 10) - margin.left - margin.right,
+		height = 400;
+		
+		var color = ["#EDC951","#CC333F","#00A0B0"];
 
-      var y = d3.scaleLinear()
-                .domain([0, d3.max(dados.map((d, i) => d.dez_percentil))])
-                .range([alturaVis, 0]);
+		var barsOptions = {
+			w: width,
+			h: height,
+			margin: margin,
+			color: color
+		};
 
-      var m = d3.scaleLinear()
-                .domain([d3.min(dados.map((d, i) => d.mediana)), d3.max(dados.map((d, i) => d.mediana))])
-                .range([x.bandwidth()/4, x.bandwidth()/2]);
-
-      var cor = function(mes, tipo) {
-          if (tipo == "fill") {
-            if (mes > 0 && mes < 5)
-                return "#21746F"
-            else return "#E2E062"
-          } else {
-            if (mes > 0 && mes < 5)
-                return "#22555F"
-            else return "#9ECA67"
-          }
-      }
-
-      var meses = ["Jan", "Fev", "Mar", "Abr", "Mai", "Jun", "Jul","Ago", "Set", "Out", "Nov", "Dez"];
-      var mes = function(mes) {
-          return meses[mes]
-      }
-
-      grafico.selectAll('g')
-       .data(dados)
-       .enter()
-        .append('circle')
-           .attr("cx", d => x(d.noventa_percentil) + 22)
-           .attr("cy", d => y(d.dez_percentil))
-           .attr("r", d => m(d.mediana))
-           .attr("fill", d => cor(d.mes, "fill"))
-           .attr("stroke", d => cor(d.mes, "stroke"))
-           .attr("stroke-width", 2)
-       
-      grafico.selectAll('g')
-       .data(dados)
-       .enter()
-        .append('text')
-           .attr("x", d => x(d.noventa_percentil) + 10)
-           .attr("y", d => y(d.dez_percentil) + 33)
-           .text(d => mes(d.mes-1));  
-    
-       
-      grafico.append("g")
-        .attr("transform", "translate(0," + alturaVis + ")")
-        .call(d3.axisBottom(x));
-
-
-      grafico.append("text")             
-        .attr("transform",
-                "translate(" + (larguraVis/2) + " ," + 
-                            (alturaVis + margin.top + 15) + ")")
-        .style("text-anchor", "middle")
-        .text("90-percentil");
-
-      grafico.append('g')
-              .attr('transform', 'translate(0,0)')
-              .call(d3.axisLeft(y))  
-
-      grafico.append("text")
-        .attr("transform", "translate(-30," + (alturaVis + margin.top)/2 + ") rotate(-90)")
-        .text("10-percentil");
-    
-    }
-
-    d3.csv('https://jhonatanbds.github.io/intro-d3/dados/boqueirao-por-mes.csv', function(dados) {
-      desenhaBarras(dados);
-    });   
+	d3.json('/portfolio-vis/post/data/dados.json', function(dados) {
+		circles(".circles", dados, barsOptions);
+	});
 </script>
     </section>
 
@@ -213,15 +203,15 @@
     <section class="share">
     <p class="backtotop"><a data-scroll href="#site-head"><i class="fa fa-lg fa-fw fa-angle-double-up"></i></a><a data-scroll class="backtotoptext" href="#site-head"> Back to top</a></p>
     <p class="info prompt">Share</p>
-    <a href="http://twitter.com/share?text=Percentis%20Boqueir%c3%a3o&url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fpercentis%2f" title="Share on Twitter"
+    <a href="http://twitter.com/share?text=Transeuntes%20do%20Acude&url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2ftranseuntes-do-acude%2f" title="Share on Twitter"
         onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
         <i class="fa fa-2x fa-fw fa-twitter-square"></i> <span class="hidden">Twitter</span>
     </a>
-    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fpercentis%2f" title="Share on Facebook"
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2ftranseuntes-do-acude%2f" title="Share on Facebook"
         onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
         <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px"></i> <span class="hidden">Facebook</span>
     </a>
-    <a href="https://plus.google.com/share?url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fpercentis%2f" title="Share on Google+"
+    <a href="https://plus.google.com/share?url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2ftranseuntes-do-acude%2f" title="Share on Google+"
        onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
         <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px"></i> <span class="hidden">Google+</span>
     </a>
