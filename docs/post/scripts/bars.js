@@ -79,6 +79,8 @@ function bars(id, dadosRaw, opt, local) {
             else
                   dados[2][veiculo].value = camJackson / qtdJackson;		
       }
+
+      d3.select(id).select("svg").remove();
    
       var grafico = d3.select(id) // cria elemento <svg> com um <g> dentro
       .append('svg')
@@ -90,17 +92,24 @@ function bars(id, dadosRaw, opt, local) {
      * As escalas
      */      
 
+
       var x1 = d3.scaleBand()
-            .domain(dados[0].map((d, i) => d.veiculo))
+            .domain(dados[local].map((d, i) => d.veiculo))
             .range([0, opt.w/3])
             .paddingInner(0.5);
 
       var y = d3.scaleLinear()
-            .domain([0, d3.max([dados[0][0].value]) + 40])
+            .domain([0, d3.max([dados[local][0].value]) + 40])
             .range([opt.h, 0]);
      /*
      * As marcas
      */
+
+     var drawRect = function(selection) {
+            selection
+                .attr('height', (d) => opt.h - y(d.value))
+     }
+
       grafico.selectAll('g')
             .data(dados[local])
             .enter()
@@ -108,8 +117,9 @@ function bars(id, dadosRaw, opt, local) {
                 .attr('x', d => x1(d.veiculo))
                 .attr('width', x1.bandwidth())
                 .attr('y', d => y(d.value))
-                .attr('height', (d) => opt.h - y(d.value))
-                .attr("fill", opt.color[local]);
+                .attr('height', 0)
+                .attr("fill", opt.color[local])
+                .transition().duration(1000).call(drawRect);;
       
      /*
      * Os eixos
@@ -135,6 +145,8 @@ function bars(id, dadosRaw, opt, local) {
             {local:"Jackson do Pandeiro", value:2}
       ]
 
+      d3.select("#controls").selectAll("button").remove();
+
       d3.select("#controls").selectAll("button.teams")
             .data(dataKeys)
             .enter()
@@ -145,6 +157,6 @@ function bars(id, dadosRaw, opt, local) {
           
           
       function mudaLocal(dado) {
-            bars(id, dadosRaw, opt, dado.local)           
+            bars(id, dadosRaw, opt, dado.value)           
       }
 }
