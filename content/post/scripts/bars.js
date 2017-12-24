@@ -1,4 +1,4 @@
-function bars(id, dadosRaw, opt) {
+function bars(id, dadosRaw, opt, local) {
 
     //Creating the adequad JSON format
 	var dados = [
@@ -15,7 +15,7 @@ function bars(id, dadosRaw, opt) {
             {veiculo:"Caminhões",value:0}
 		],[//Jackson
             {veiculo:"Carros",value:0},
-		    {veiculo:"Motos",value:0},
+		{veiculo:"Motos",value:0},
             {veiculo:"Onibus",value:0},
             {veiculo:"Caminhões",value:0}
 		]
@@ -79,6 +79,8 @@ function bars(id, dadosRaw, opt) {
             else
                   dados[2][veiculo].value = camJackson / qtdJackson;		
       }
+
+      d3.select(id).select("svg").remove();
    
       var grafico = d3.select(id) // cria elemento <svg> com um <g> dentro
       .append('svg')
@@ -86,79 +88,75 @@ function bars(id, dadosRaw, opt) {
         .attr('height', opt.h + opt.margin.top + opt.margin.bottom)
       .append('g') // para entender o <g> vá em x03-detalhes-svg.html
         .attr('transform', 'translate(' +  margin.left + ',' + margin.top + ')');
-    /*
+     /*
      * As escalas
      */      
 
-      var x1 = d3.scaleBand()
-            .domain(dados[0].map((d, i) => d.veiculo))
-            .range([0, opt.w/3-10])
-            .paddingInner(0.5);
-      
-      var x2 = d3.scaleBand()
-            .domain(dados[1].map((d, i) => d.veiculo))
-            .range([opt.w/3 + 10, 2*opt.w/3-10])
-            .paddingInner(0.5);
 
-      var x3 = d3.scaleBand()
-            .domain(dados[2].map((d, i) => d.veiculo))
-            .range([2*opt.w/3 + 10, opt.w])
+      var x1 = d3.scaleBand()
+            .domain(dados[local].map((d, i) => d.veiculo))
+            .range([0, opt.w/3])
             .paddingInner(0.5);
 
       var y = d3.scaleLinear()
-            .domain([0, d3.max([dados[0][0].value]) + 40])
+            .domain([0, d3.max([dados[local][0].value]) + 40])
             .range([opt.h, 0]);
-    /*
+     /*
      * As marcas
      */
+
+     var drawRect = function(selection) {
+            selection
+                .attr('height', (d) => opt.h - y(d.value))
+     }
+
       grafico.selectAll('g')
-            .data(dados[0])
+            .data(dados[local])
             .enter()
               .append('rect')
                 .attr('x', d => x1(d.veiculo))
                 .attr('width', x1.bandwidth())
                 .attr('y', d => y(d.value))
-                .attr('height', (d) => opt.h - y(d.value))
-                .attr("fill", opt.color[0]);
+                .attr('height', 0)
+                .attr("fill", opt.color[local])
+                .transition().duration(1000).call(drawRect);;
       
-      grafico.selectAll('g')
-            .data(dados[1])
-            .enter()
-              .append('rect')
-                .attr('x', d => x2(d.veiculo))
-                .attr('width', x2.bandwidth())
-                .attr('y', d => y(d.value))
-                .attr('height', (d) => opt.h - y(d.value))
-                .attr("fill", opt.color[1]);
-
-      grafico.selectAll('g')
-            .data(dados[2])
-            .enter()
-              .append('rect')
-                .attr('x', d => x3(d.veiculo))
-                .attr('width', x3.bandwidth())
-                .attr('y', d => y(d.value))
-                .attr('height', (d) => opt.h - y(d.value))
-                .attr("fill", opt.color[2]);
-    /*
+     /*
      * Os eixos
      */
       grafico.append("g")
             .attr("class", "x axis")
             .attr("transform", "translate(0," + opt.h + ")")
             .call(d3.axisBottom(x1));
-      grafico.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + opt.h + ")")
-            .call(d3.axisBottom(x2));
-      grafico.append("g")
-            .attr("class", "x axis")
-            .attr("transform", "translate(0," + opt.h + ")")
-            .call(d3.axisBottom(x3));
+      
       grafico.append('g')
             .attr('transform', 'translate(0,0)')
             .call(d3.axisLeft(y));
       grafico.append("text")
       .attr("transform", "translate(-40," + (opt.h + opt.margin.top)/2 + ") rotate(-90)")
       .text("Quantidade");
+
+      /*
+      * Os botões
+      */
+      const dataKeys = [
+            {local:"Burrinhos", value:0},
+            {local:"Bob's", value:1},
+            {local:"Jackson do Pandeiro", value:2}
+      ]
+
+      d3.select("#controls").selectAll("button").remove();
+
+      d3.select("#controls").selectAll("button.teams")
+            .data(dataKeys)
+            .enter()
+              .append("button")
+              .attr("class", "btn btn-default")
+              .on("click", mudaLocal)
+              .html(d => d.local);
+          
+          
+      function mudaLocal(dado) {
+            bars(id, dadosRaw, opt, dado.value)           
+      }
 }

@@ -5,7 +5,7 @@ draft: false
 ---
 
 
-    
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css" integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">    
 <meta http-equiv="Content-Type" content="text/html;charset=utf-8"/ >
 <!-- Google fonts -->
 <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300' rel='stylesheet' type='text/css'>
@@ -41,9 +41,15 @@ draft: false
 </p>
 <div style="text-align: center" class="radarChart"></div>
 <p>
-	É perceptível a discrepância da quantidade de movimento pelo tamanho da figura formada pelos dados dos Burrinhos em relação aos outros locais. E essa diferença se dá, principalmente, pela quantidade de veículos motorizados, que é o foco da próxima visualização. No gráfico de barras a seguir, podemos perceber a composição média do trânsito de veículos em cada local de coleta de dados. A quantidade expressa é relativa à média da contagem de veículos feita em horários aleatórios num período de 15 minutos para cada contagem, e mais uma vez: Burrinhos em amarelo, Bob`s em vermelho e Jackson do pandeiro em azul.
+	É perceptível a discrepância da quantidade de movimento pelo tamanho da figura formada pelos dados dos Burrinhos em relação aos outros locais. E essa diferença se dá, principalmente, pela quantidade de veículos motorizados, que é o foco da próxima visualização. No gráfico de barras a seguir, podemos perceber a composição média do trânsito de veículos em cada local de coleta de dados. A quantidade expressa é relativa à média da contagem de veículos feita em horários aleatórios num período de 15 minutos para cada contagem, e mais uma vez: Burrinhos em amarelo, Bob`s em vermelho e Jackson do pandeiro em azul. O local pode ser selecionado a partir dos botões de controle.
 </p>
-<div class="bars"></div>
+<div class="row">
+	<div class="bars col-md-4"></div>
+	<div class="col-md-8">
+		<div class="btns btn-group row" id="controls"></div>
+	</div>	
+</div>
+
 <p>
 	E para a última visualização temos um comparativo da quantidade de homens e mulheres que visitam o açude velho, considerando os diferentes locais e horários. As quantidades são sempre geradas a partir da média obtida através dos dados. O tamanho das marcas representam a quantidade, enquanto a cor, o sexo: mulheres em vermelho e homens em azul
 </p>
@@ -78,7 +84,7 @@ draft: false
 </script>
 <script type="text/javascript">
     var	margin = {top: 10, right: 20, bottom:30, left: 50}, // para descolar a vis das bordas do grafico
-		width = Math.min(600, window.innerWidth - 10) - margin.left - margin.right,
+		width = 250,
 		height = 400;
 		
 		var color = ["#EDC951","#CC333F","#00A0B0"];
@@ -91,7 +97,7 @@ draft: false
 		};
 
   d3.json('/portfolio-vis/post/data/dados.json', function(dados) {
-    bars(".bars", dados, barsOptions);
+    bars(".bars", dados, barsOptions, 0);
   });
 </script>
 <script type="text/javascript">
