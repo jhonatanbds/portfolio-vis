@@ -6,11 +6,28 @@
     <description>Recent content on Visualização de Informação</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <copyright>Released under the MIT license.</copyright>
-    <lastBuildDate>Sat, 09 Dec 2017 10:02:04 -0300</lastBuildDate>
+    <lastBuildDate>Sun, 18 Feb 2018 18:19:02 -0300</lastBuildDate>
     
 	<atom:link href="https://jhonatanbds.github.io/portfolio-vis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Baixa renda na paraíba</title>
+      <link>https://jhonatanbds.github.io/portfolio-vis/post/econ_pb/</link>
+      <pubDate>Sun, 18 Feb 2018 18:19:02 -0300</pubDate>
+      
+      <guid>https://jhonatanbds.github.io/portfolio-vis/post/econ_pb/</guid>
+      <description>       Quantidade de domicílios com renda mensal de até 1/8 de salário mínimo na paraíba.    Na visualizacão acima não foi possível encontrar um padrão regiões em que mais se concentram domicilios de baixa renda, apenas pode ser observado que as regiões mais metropolitanas e em torno do litoral essa estatística é muito baixa.   </description>
+    </item>
+    
+    <item>
+      <title>Distribuição de residente de cor ou raça preta em João Pessoa</title>
+      <link>https://jhonatanbds.github.io/portfolio-vis/post/jp_racial/</link>
+      <pubDate>Sun, 18 Feb 2018 18:19:02 -0300</pubDate>
+      
+      <guid>https://jhonatanbds.github.io/portfolio-vis/post/jp_racial/</guid>
+      <description>Quantidade de pessoas residentes na cidade de João Pessoa de cor ou raça preta.    Essa é uma estatística que também não nos apresenta um padrão de distribuição, o que pode ser visto através de uma análise no mapa é que as regiões onde a estatística é mais alta são cercadas de outras regiões que também possuem uma alta quantidade de pessoas de cor ou raça preta.</description>
+    </item>
     
     <item>
       <title>Transeuntes do Açude</title>
@@ -18,7 +35,7 @@
       <pubDate>Sat, 09 Dec 2017 10:02:04 -0300</pubDate>
       
       <guid>https://jhonatanbds.github.io/portfolio-vis/post/transeuntes-do-acude/</guid>
-      <description>body {font-family: &#39;Open Sans&#39;, sans-serif;font-size: 11px;font-weight: 300;fill: #242424;text-align: left;text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff;cursor: default;}.legend {font-family: &#39;Raleway&#39;, sans-serif;fill: #333333;}.tooltip {fill: #333333;}Dessa vez vamos abordar um tema diferente, apesar de levar &#34;açude&#34; no título, nosso foco nesse post são os transeuntes do açude velho.</description>
+      <description>body { font-family: &#39;Open Sans&#39;, sans-serif; font-size: 11px; font-weight: 300; fill: #242424; text-align: left; text-shadow: 0 1px 0 #fff, 1px 0 0 #fff, -1px 0 0 #fff, 0 -1px 0 #fff; cursor: default; } .legend { font-family: &#39;Raleway&#39;, sans-serif; fill: #333333; } .tooltip { fill: #333333; }   Dessa vez vamos abordar um tema diferente, apesar de levar &#34;açude&#34; no título, nosso foco nesse post são os transeuntes do açude velho.</description>
     </item>
     
     <item>
@@ -27,7 +44,7 @@
       <pubDate>Wed, 29 Nov 2017 00:00:00 +0000</pubDate>
       
       <guid>https://jhonatanbds.github.io/portfolio-vis/post/percentis/</guid>
-      <description>A visualização a seguir apresenta a relação entre 10-percentil e 90-percentil para cada mês do ano. Bem como é possível identificar pelas marcas em um tom esverdeado se o mês é chuvoso ou não e além disso, o tamanho da marca indica a mediana..mychart rect {fill: steelblue;}.mychart rect:hover {fill: goldenrod;}.mychart text {font: 12px sans-serif;text-anchor: left;}&#34;</description>
+      <description>A visualização a seguir apresenta a relação entre 10-percentil e 90-percentil para cada mês do ano. Bem como é possível identificar pelas marcas em um tom esverdeado se o mês é chuvoso ou não e além disso, o tamanho da marca indica a mediana.   .mychart rect { fill: steelblue; } .mychart rect:hover { fill: goldenrod; } .mychart text { font: 12px sans-serif; text-anchor: left; }  &#34;</description>
     </item>
     
     <item>
