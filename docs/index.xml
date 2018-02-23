@@ -6,10 +6,28 @@
     <description>Recent content on Visualização de Informação</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>pt-br</language>
-    <lastBuildDate>Sun, 18 Feb 2018 18:19:02 -0300</lastBuildDate>
+    <lastBuildDate>Thu, 22 Feb 2018 18:19:02 -0300</lastBuildDate>
     
 	<atom:link href="https://jhonatanbds.github.io/portfolio-vis/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Educação na paraíba</title>
+      <link>https://jhonatanbds.github.io/portfolio-vis/post/educ_pb/</link>
+      <pubDate>Thu, 22 Feb 2018 18:19:02 -0300</pubDate>
+      
+      <guid>https://jhonatanbds.github.io/portfolio-vis/post/educ_pb/</guid>
+      <description>.cidades { fill: none; stroke: #fff; stroke-linejoin: round; } path:hover, path.highlighted { fill: tomato; } div.tooltip { position: absolute; background-color: white; border: 1px solid black; color: black; font-family:&#34;avenir next&#34;, Arial, sans-serif; padding: 4px 8px; display: none; }  Percentual de aprendizado adequado e crescimento na paraíba   Aprendizado Crescimento  Pelo paralelo obtido da observação dos dois mapas podemos observar que a maioria dos municípios que já tem um bom percentual de aprendizado mantém um bom crescimento.</description>
+    </item>
+    
+    <item>
+      <title>Taxa de conclusão do ensino superior no Brasil</title>
+      <link>https://jhonatanbds.github.io/portfolio-vis/post/conc_br/</link>
+      <pubDate>Thu, 22 Feb 2018 18:19:02 -0300</pubDate>
+      
+      <guid>https://jhonatanbds.github.io/portfolio-vis/post/conc_br/</guid>
+      <description>    .estados { fill: none; stroke: #fff; stroke-linejoin: round; } path:hover, path.highlighted { fill: tomato; } div.tooltip { position: absolute; background-color: white; border: 1px solid black; color: black; font-family:&#34;avenir next&#34;, Arial, sans-serif; padding: 4px 8px; display: none; }          </description>
+    </item>
     
     <item>
       <title>Baixa renda na paraíba</title>
