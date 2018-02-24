@@ -26,7 +26,8 @@
       <pubDate>Thu, 22 Feb 2018 18:19:02 -0300</pubDate>
       
       <guid>https://jhonatanbds.github.io/portfolio-vis/post/conc_br/</guid>
-      <description>    .estados { fill: none; stroke: #fff; stroke-linejoin: round; } path:hover, path.highlighted { fill: tomato; } div.tooltip { position: absolute; background-color: white; border: 1px solid black; color: black; font-family:&#34;avenir next&#34;, Arial, sans-serif; padding: 4px 8px; display: none; }          </description>
+      <description>.estados { fill: none; stroke: #fff; stroke-linejoin: round; } path:hover, path.highlighted { fill: tomato; } div.tooltip { position: absolute; background-color: white; border: 1px solid black; color: black; font-family:&#34;avenir next&#34;, Arial, sans-serif; padding: 4px 8px; display: none; }  Nesse post será avaliada a evazão nas universidades publicas no Brasil, no mapa abaixo temos a porcentagem daqueles que concluem um curso de ensino superior por estado.
+   A partir da análise do mapa, podemos perceber que existe uma região em destaque, a maioria dos estados tem sua taxa de conclusão acima de 50%.</description>
     </item>
     
     <item>
