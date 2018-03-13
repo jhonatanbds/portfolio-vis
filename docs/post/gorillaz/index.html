@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+
+    <title>Gorillaz e artistas similares &middot; Visualização de Informação</title>
+    <meta name="author" content="Jhonatan Batista">
+    <meta name="description" content="Your description of the blog">
+    <meta name="generator" content="Hugo 0.37" />
+    <meta name="HandheldFriendly" content="True">
+    <meta name="MobileOptimized" content="320">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+
+    <!-- RSS autodiscovery -->
+    
+
+    <link rel="shortcut icon" href="https://jhonatanbds.github.io/portfolio-vis/img/favicon.ico">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
+
+    <!-- Stylesheets -->
+    <link rel="stylesheet" href="https://jhonatanbds.github.io/portfolio-vis/css/screen.css">
+    <link rel="stylesheet" href="https://jhonatanbds.github.io/portfolio-vis/css/github.css">
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/styles/default.min.css">
+    
+
+    
+    <link rel="shortcut icon" type="image/x-icon" href="https://jhonatanbds.github.io/portfolio-vis/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="https://jhonatanbds.github.io/portfolio-vis/favicon.ico">
+    
+
+    <!-- Stylesheet for theme color -->
+    <style type="text/css">
+    a, a:visited {color: #33cc99;}
+    .pagination a {color: #33cc99;}
+    .gist .gist-file .gist-meta a:visited {color: #33cc99 !important;}
+    a:focus, a:hover {color: #178b6b;}
+    h1.post-title a:focus, h1.post-title a:hover, h1.blog-title a:focus, h1.blog-title a:hover {color: #178b6b;}
+    .older-posts:hover, .newer-posts:hover {color: #178b6b;}
+</style>
+</head>
+
+<body class="home-template">
+    <header id="site-head">
+	
+	<h1 class="blog-title"><a href="https://jhonatanbds.github.io/portfolio-vis">Visualização de Informação</a></h1>
+	
+	
+	<h1 class="blog-subtitle">portfolio de visualizações</h1>
+	
+</header>
+    
+    
+    <main class="content" role="main">
+    
+<article class="post">
+    <header>
+        <h1 class="post-title">Gorillaz e artistas similares</h1>
+        <div class="post-meta">
+            <time datetime="12 March 2018">
+                12 March 2018
+            </time>
+        </div>
+    </header>
+
+    <section class="post-content">
+        <!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<title>D3</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/fonts.css" rel="stylesheet">
+	<style>
+			.node {
+			    fill: #ccc;
+			    stroke: #fff;
+			    stroke-width: 2px;
+			}
+
+			.link {
+					stroke: #999;
+					stroke-opacity: 0.3;
+			}
+    </style>
+</head>
+<body>
+	<div class="container">
+            <p>Para essa visualização temos uma visão sobre a banda Gorillaz e os artistas relacionados em uma rede, onde essa relação é representada pelas conexões dos pontos e a banda analisada está em destaque ao centro. Ao sobrepor um ponto com o mouse um rótulo referente a banda é exibido.</p>
+
+		<div id="chart"></div>
+
+		<div class="section">
+
+			<div class="row">
+				<div class="col-md-8">
+					<h3>Topologia</h3>
+					<p>Existe uma pequena comunidade mais abaixo e é possível também perceber que os pontos de mesma cor tendem a se agrupar.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer></footer>
+
+	<!-- scripts -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script>
+		var
+		    width = 500,
+		    height = 500;
+		var svg = d3.select("#chart")
+				.append("svg")
+				.attr('version', '1.1')
+				.attr('viewBox', '0 0 '+width+' '+height)
+                .attr('width', '100%');
+                
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        
+		var simulation = d3.forceSimulation()
+		    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+		    .force("charge", d3.forceManyBody())
+		    .force("center", d3.forceCenter(width / 2, height/2));
+		d3.json("/portfolio-vis/post/data/artistas-semelhantes.json", function(error, graph) {
+		  if (error) throw error;
+			var nodes = graph.nodes.filter(k => k.size >=70);
+			var edges = graph.edges.filter(k => elimina(k.source) && elimina(k.target));
+			function elimina(id){
+				let guard = false;
+				for (var i = 0; i < nodes.length; i++) {
+					if(nodes[i].id === id){
+						guard = true;
+					}
+				}
+				return guard;
+			}
+			function whatGroup(valor){
+				let grupo = 0;
+				let cont1 = 1;
+				let cont2 = 1;
+				while(cont2 <= 20){
+					if (valor === cont2){
+						grupo = cont1;
+						break;
+					}
+					if(cont2 % 2 === 0){
+						cont1 +=1;
+					}
+					cont2 += 1;
+				}
+				return grupo;
+			}
+			nodes.map(k => k.group = whatGroup(95 - k.size));
+/*
+			function ordenando(){
+				let nodes_ordenados= [];
+				for (var i = 1; i < 11; i++) {
+					for (var j = 0; j < nodes.length; j++) {
+							if(nodes[j].group === i){
+								nodes_ordenados.push(nodes[j]);
+							}
+					}
+				}
+				console.log(nodes_ordenados);
+				return nodes_ordenados;
+			}
+			nodes = ordenando();
+      */
+			console.log(nodes);
+			console.log(edges);
+		  var link = svg.append("g")
+		      .attr("class", "link")
+		    .selectAll("line")
+		    	.data(edges)
+		    .enter().append("line");
+		  var node = svg.append("g")
+		      .attr("class", "nodes")
+		    .selectAll("circle")
+		    	.data(nodes)
+		    .enter().append("circle")
+		      .attr("r", d => d.label != "Gorillaz"? 6: 10)
+		      .attr("fill", d => d.label != "Gorillaz"? color(d.group): "black")
+		      .call(d3.drag()
+		          .on("start", dragstarted)
+		          .on("drag", dragged)
+		          .on("end", dragended));
+		  node.append("title")
+		      .text(function(d) { return d.label; });
+		  simulation
+		      .nodes(nodes)
+		      .on("tick", ticked);
+		  simulation.force("link")
+		      .links(edges);
+		  function ticked() {
+		    link
+		        .attr("x1", function(d) { return d.source.x; })
+		        .attr("y1", function(d) { return d.source.y; })
+		        .attr("x2", function(d) { return d.target.x; })
+		        .attr("y2", function(d) { return d.target.y; });
+		    node
+		        .attr("cx", function(d) { return d.x; })
+		        .attr("cy", function(d) { return d.y; });
+		  }
+		});
+		function dragstarted(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+		  d.fx = d.x;
+		  d.fy = d.y;
+		}
+		function dragged(d) {
+		  d.fx = d3.event.x;
+		  d.fy = d3.event.y;
+		}
+		function dragended(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0);
+		  d.fx = null;
+		  d.fy = null;
+		}
+</script>
+
+</body>
+</html>
+
+    </section>
+
+    
+    <section class="post-tags" style="padding-bottom:60px;">
+        <div class="post-meta tags">
+            <i class="fa fa-fw fa-tag"></i>
+            
+        </div>
+    </section>
+    
+    <div id="disqus_thread"></div>
+<script>
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "spf13" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+    <section class="share">
+    <p class="backtotop"><a data-scroll href="#site-head"><i class="fa fa-lg fa-fw fa-angle-double-up"></i></a><a data-scroll class="backtotoptext" href="#site-head"> Back to top</a></p>
+    <p class="info prompt">Share</p>
+    <a href="http://twitter.com/share?text=Gorillaz%20e%20artistas%20similares&url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fgorillaz%2f" title="Share on Twitter"
+        onclick="window.open(this.href, 'twitter-share', 'width=550,height=235');return false;">
+        <i class="fa fa-2x fa-fw fa-twitter-square"></i> <span class="hidden">Twitter</span>
+    </a>
+    <a href="https://www.facebook.com/sharer/sharer.php?u=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fgorillaz%2f" title="Share on Facebook"
+        onclick="window.open(this.href, 'facebook-share','width=580,height=296');return false;">
+        <i class="fa fa-2x fa-fw fa-facebook-square" style="margin-left: -8px"></i> <span class="hidden">Facebook</span>
+    </a>
+    <a href="https://plus.google.com/share?url=https%3a%2f%2fjhonatanbds.github.io%2fportfolio-vis%2fpost%2fgorillaz%2f" title="Share on Google+"
+       onclick="window.open(this.href, 'google-plus-share', 'width=490,height=530');return false;">
+        <i class="fa fa-2x fa-fw fa-google-plus-square" style="margin-left: -8px"></i> <span class="hidden">Google+</span>
+    </a>
+</section>
+
+    <footer class="post-footer">
+        <section class="author">
+    <div class="authorimage" style="background: url(https://jhonatanbds.github.io/portfolio-vis/img/avatar.jpg)"></div>
+    <h4>Jhonatan Batista</h4>
+    <p class="bio">Computer Science undergraduate at UFCG</p>
+    <p class="meta">
+      
+    </p>
+</section>
+    </footer>
+    
+</article>
+
+    </main>
+
+    <footer class="site-footer">
+	<div class="inner">
+		<section class="footer-social">
+      
+      <a href="//twitter.com/jbatistakkk" target="_blank" title="Twitter"><i class="fa fa-2x fa-fw fa-twitter"></i> <span class="hidden">Twitter</span></a>&nbsp;
+      
+      
+      <a href="//www.linkedin.com/in/jhonatan-batista-611071b3" target="_blank" title="linkedIn"><i class="fa fa-2x fa-fw fa-linkedin"></i> <span class="hidden">LinkedIn</span></a>&nbsp;
+      
+      
+      
+      <a href="//www.facebook.com/jbatistak" target="_blank" title="Facebook"><i class="fa fa-2x fa-fw fa-facebook"></i> <span class="hidden">Facebook</span></a>&nbsp;
+      
+      
+      
+      <a href="//github.com/jhonatanbds" target="_blank" title="GitHub"><i class="fa fa-2x fa-fw fa-github"></i> <span class="hidden">GitHub</span></a>&nbsp;
+      
+      
+      
+      
+  </section>
+
+		<section class="copyright">&copy; 2018 <a href="https://jhonatanbds.github.io/portfolio-vis">Jhonatan Batista</a>. Released under the MIT license.</section>
+	</div>
+</footer>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+<script src="https://jhonatanbds.github.io/portfolio-vis/js/index.js"></script>
+<script src="https://jhonatanbds.github.io/portfolio-vis/js/smooth-scroll.min.js"></script>
+<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.8.0/highlight.min.js"></script>
+
+
+<script>
+    smoothScroll.init({
+        speed: 800,
+        easing: 'easeInOutCubic',
+        updateURL: false,
+        offset: 125,
+    });
+</script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+---
+title: "Gorillaz e artistas similares"
+date: 2018-03-12T19:44:41-03:00
+draft: false
+---
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+	<link rel="icon" href="/favicon.ico" type="image/x-icon">
+	<title>D3</title>
+
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans|Roboto+Slab" rel="stylesheet">
+	<link href="css/bootstrap.min.css" rel="stylesheet">
+	<link href="css/main.css" rel="stylesheet">
+	<link href="css/fonts.css" rel="stylesheet">
+	<style>
+			.node {
+			    fill: #ccc;
+			    stroke: #fff;
+			    stroke-width: 2px;
+			}
+
+			.link {
+					stroke: #999;
+					stroke-opacity: 0.3;
+			}
+    </style>
+</head>
+<body>
+	<div class="container">
+            <p>Para essa visualização temos uma visão sobre a banda Gorillaz e os artistas relacionados em uma rede, onde essa relação é representada pelas conexões dos pontos e a banda analisada está em destaque ao centro. Ao sobrepor um ponto com o mouse um rótulo referente a banda é exibido.</p>
+
+		<div id="chart"></div>
+
+		<div class="section">
+
+			<div class="row">
+				<div class="col-md-8">
+					<h3>Topologia</h3>
+					<p>Existe uma pequena comunidade mais abaixo e é possível também perceber que os pontos de mesma cor tendem a se agrupar.</p>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<footer></footer>
+
+	<!-- scripts -->
+	<script src="https://d3js.org/d3.v4.min.js"></script>
+	<script>
+		var
+		    width = 500,
+		    height = 500;
+		var svg = d3.select("#chart")
+				.append("svg")
+				.attr('version', '1.1')
+				.attr('viewBox', '0 0 '+width+' '+height)
+                .attr('width', '100%');
+                
+        var color = d3.scaleOrdinal(d3.schemeCategory10);
+        
+		var simulation = d3.forceSimulation()
+		    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+		    .force("charge", d3.forceManyBody())
+		    .force("center", d3.forceCenter(width / 2, height/2));
+		d3.json("/portfolio-vis/post/data/artistas-semelhantes.json", function(error, graph) {
+		  if (error) throw error;
+			var nodes = graph.nodes.filter(k => k.size >=70);
+			var edges = graph.edges.filter(k => elimina(k.source) && elimina(k.target));
+			function elimina(id){
+				let guard = false;
+				for (var i = 0; i < nodes.length; i++) {
+					if(nodes[i].id === id){
+						guard = true;
+					}
+				}
+				return guard;
+			}
+			function whatGroup(valor){
+				let grupo = 0;
+				let cont1 = 1;
+				let cont2 = 1;
+				while(cont2 <= 20){
+					if (valor === cont2){
+						grupo = cont1;
+						break;
+					}
+					if(cont2 % 2 === 0){
+						cont1 +=1;
+					}
+					cont2 += 1;
+				}
+				return grupo;
+			}
+			nodes.map(k => k.group = whatGroup(95 - k.size));
+/*
+			function ordenando(){
+				let nodes_ordenados= [];
+				for (var i = 1; i < 11; i++) {
+					for (var j = 0; j < nodes.length; j++) {
+							if(nodes[j].group === i){
+								nodes_ordenados.push(nodes[j]);
+							}
+					}
+				}
+				console.log(nodes_ordenados);
+				return nodes_ordenados;
+			}
+			nodes = ordenando();
+      */
+			console.log(nodes);
+			console.log(edges);
+		  var link = svg.append("g")
+		      .attr("class", "link")
+		    .selectAll("line")
+		    	.data(edges)
+		    .enter().append("line");
+		  var node = svg.append("g")
+		      .attr("class", "nodes")
+		    .selectAll("circle")
+		    	.data(nodes)
+		    .enter().append("circle")
+		      .attr("r", d => d.label != "Gorillaz"? 6: 10)
+		      .attr("fill", d => d.label != "Gorillaz"? color(d.group): "black")
+		      .call(d3.drag()
+		          .on("start", dragstarted)
+		          .on("drag", dragged)
+		          .on("end", dragended));
+		  node.append("title")
+		      .text(function(d) { return d.label; });
+		  simulation
+		      .nodes(nodes)
+		      .on("tick", ticked);
+		  simulation.force("link")
+		      .links(edges);
+		  function ticked() {
+		    link
+		        .attr("x1", function(d) { return d.source.x; })
+		        .attr("y1", function(d) { return d.source.y; })
+		        .attr("x2", function(d) { return d.target.x; })
+		        .attr("y2", function(d) { return d.target.y; });
+		    node
+		        .attr("cx", function(d) { return d.x; })
+		        .attr("cy", function(d) { return d.y; });
+		  }
+		});
+		function dragstarted(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+		  d.fx = d.x;
+		  d.fy = d.y;
+		}
+		function dragged(d) {
+		  d.fx = d3.event.x;
+		  d.fy = d3.event.y;
+		}
+		function dragended(d) {
+		  if (!d3.event.active) simulation.alphaTarget(0);
+		  d.fx = null;
+		  d.fy = null;
+		}
+</script>
+
+</body>
+</html>
